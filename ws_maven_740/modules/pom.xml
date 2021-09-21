@@ -12,5 +12,6 @@
 	<packaging>pom</packaging>
   <modules>
     <module>HelloWorld</module>
+    <module>ListaFacturas</module>
   </modules>
 </project>

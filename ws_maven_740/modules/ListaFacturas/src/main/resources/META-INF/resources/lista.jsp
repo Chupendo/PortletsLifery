@@ -11,12 +11,14 @@
 		<th>Num</th>
 		<th>Cliente</th>
 		<th>Import</th>
+		<th>Detalle</th>
 	</tr>
 	<c:forEach var="f" items="${facturas}">
 		<tr>
 			<td>${f.num}</td>
 			<td>${f.cliente}</td>
 			<td>${f.importe}</td>
+			<td>${f}</td>
 		</tr>
 	</c:forEach>
 </table>

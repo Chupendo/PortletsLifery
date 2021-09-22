@@ -42,6 +42,7 @@ public class ListaFacturasClassPortlet extends MVCPortlet {
 		//Recogmoes el parametro, si no es jspPage, va ha devolver una cadena vacia
 		String jspPage = ParamUtil.getString(renderRequest, "jspPage","");
 		
+		System.out.println("jspPage= "+jspPage);
 		//
 		if(jspPage.equals("/lista.jsp")) {
 			//Establcemos la logina necoiga que devuela un listado de facutras

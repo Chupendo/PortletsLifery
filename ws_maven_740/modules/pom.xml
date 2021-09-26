@@ -13,5 +13,6 @@
   <modules>
     <module>HelloWorld</module>
     <module>ListaFacturas</module>
+    <module>ListaFacturasPetiAcc</module>
   </modules>
 </project>

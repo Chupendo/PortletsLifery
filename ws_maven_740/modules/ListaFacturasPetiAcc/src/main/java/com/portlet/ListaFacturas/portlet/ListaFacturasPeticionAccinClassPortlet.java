@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -37,7 +39,40 @@ import org.osgi.service.component.annotations.Component;
 )
 public class ListaFacturasPeticionAccinClassPortlet extends MVCPortlet {
 	private static Log _log = LogFactoryUtil.getLog(ListaFacturasPeticionAccinClassPortlet.class.toString());
+	private static Vector<Hashtable<String,String>> facturas = new Vector<Hashtable<String,String>>();
+	/**
+	 * Procesado de la informacion
+	 * Se basa en el metodo "processAction" aunque se puede cambiar el metodo y no sobreescribir
+	 
+	@Override
+	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse)
+			throws IOException, PortletException {
+		// TODO Auto-generated method stub
+		super.processAction(actionRequest, actionResponse);
+	}
+	*
+	^ En se caso, este meotod es el que se ejecuta cuando le damos a enivar al formulario.
+	*/
+	public void altaFactura(ActionRequest actionRequest, ActionResponse actionResponse)
+			throws IOException, PortletException {
+		
+		_log.info("Started method render of the class ListaFacturasPeticionAccinClassPortlet");
+		String num = ParamUtil.getString(actionRequest, "id","");
+		String cliente = ParamUtil.getString(actionRequest, "nombre","");
+		String importe = ParamUtil.getString(actionRequest, "importe","");
+		
+		Hashtable<String,String> registro = new Hashtable<String,String>();
+		registro.put("id", num);
+		registro.put("nombre", cliente);
+		registro.put("precio", importe);
+		facturas.add(registro);
+		
+		
+	}
 	
+	/**
+	 * Renderizado
+	 */
 	@Override
 	public void render(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
@@ -47,29 +82,7 @@ public class ListaFacturasPeticionAccinClassPortlet extends MVCPortlet {
 		System.out.println("Param recivied 'jspPage': "+param);
 		
 		if(param.equals("/lista.jsp")) {
-			System.out.println("Param recivied 'namePage': "+param);
-			//Establcemos la logina necoiga que devuela un listado de facutras
-			Vector<Hashtable<String,String>> facturas = new Vector<Hashtable<String,String>>();
-			
-			Hashtable<String,String> registro = new Hashtable<String,String>();
-			registro.put("id", "2021/09/21");
-			registro.put("nombre", "Andres");
-			registro.put("precio", "34.25");
-			facturas.add(registro);
-
-			registro.put("id", "2021/09/20");
-			registro.put("nombre", "Jose");
-			registro.put("precio", "25.00");
-			facturas.add(registro);
-
-			registro.put("id", "2021/09/21");
-			registro.put("nombre", "Pedro");
-			registro.put("precio", "400");	
-			facturas.add(registro);
-
-			//Lo añadimos a la vista, como un parametro de entrada
 			renderRequest.setAttribute("facturas", facturas);
-
 		}
 		
 		

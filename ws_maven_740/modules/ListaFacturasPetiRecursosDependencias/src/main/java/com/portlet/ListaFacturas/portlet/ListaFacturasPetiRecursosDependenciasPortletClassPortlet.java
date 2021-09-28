@@ -1,12 +1,15 @@
 package com.portlet.ListaFacturas.portlet;
 
 import com.portlet.ListaFacturas.constants.ListaFacturasPetiRecursosDependenciasPortletClassPortletKeys;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -16,7 +19,11 @@ import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -41,8 +48,47 @@ public class ListaFacturasPetiRecursosDependenciasPortletClassPortlet extends MV
 	private static Log _log = LogFactoryUtil.getLog(ListaFacturasPetiRecursosDependenciasPortletClassPortlet.class.toString());
 	private static Vector<Hashtable<String,String>> facturas = new Vector<Hashtable<String,String>>();
 	
+	/*
+	 * Resoruce
+	 * Al giaul que rende, solo puede exisitr una
+	 * 
+	 * Para exporta csv, necesitmaos la dependneica commns.lang y commons.csv
+	 */
+	@Override
+	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			throws IOException, PortletException {
+		
+		//Configuramos la cabecera de la espuesta HTTP
+		resourceResponse.setContentType("application/csv");
+		resourceResponse.addProperty(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=listado.csv");
+		
+		//Contendeor de datos
+		OutputStreamWriter osw = new OutputStreamWriter(resourceResponse.getPortletOutputStream());
+		
+		CSVPrinter printer = new CSVPrinter(
+				osw, //escriba la salida del portlet
+				CSVFormat.DEFAULT.withHeader("id","cliente","importe") //cabeceras
+				);
+		
+		//Recorremos los datos
+		for(Hashtable<String,String> f:facturas) {
+			printer.printRecord(
+					f.get("id"),
+					f.get("nombre"),
+					f.get("importe")
+					);
+		
+		}
+		
+		printer.flush();
+		printer.close();
+		
+		
+		super.serveResource(resourceRequest, resourceResponse);
+	}
 	/**
 	 * Accion
+	 * Puede existir mas de una
 	 */
 	public void altaFactura(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException {

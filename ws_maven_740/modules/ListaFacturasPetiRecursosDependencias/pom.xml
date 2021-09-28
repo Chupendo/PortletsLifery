@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    <artifactId>ws_maven_740-modules</artifactId>
-    <groupId>ws_maven_740</groupId>
-    <version>1.0.0</version>
-  </parent>
+		<artifactId>ws_maven_740-modules</artifactId>
+		<groupId>ws_maven_740</groupId>
+		<version>1.0.0</version>
+	</parent>
 	<groupId>com.portlet.ListaFacturas</groupId>
 	<artifactId>ListaFacturasPetiRecursosDependencias</artifactId>
 	<version>1.0.0</version>
@@ -15,9 +17,7 @@
 
 			<!-- Uncomment the following element if the project is not in workspace -->
 
-			<!--<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>-->
+			<!--<activation> <activeByDefault>true</activeByDefault> </activation> -->
 			<properties>
 				<liferay.bom.version>7.4.0</liferay.bom.version>
 			</properties>
@@ -66,6 +66,19 @@
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>release.portal.api</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.8</version>
 		</dependency>
 	</dependencies>
 	<build>

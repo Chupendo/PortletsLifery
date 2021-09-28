@@ -22,3 +22,8 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<div style='margin-top: 15px;'>
+	<portlet:resourceURL var="exportCSV"/>
+	<a href="${exportCSV}">Exportar a CSV</a>
+</div>
